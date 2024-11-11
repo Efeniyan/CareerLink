@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "title": "Développeur Frontend",
+        "description": "Construire des interfaces utilisateur avec React et Vue.js.",
+        "userId": 2,
+        "location": "Paris, France"
+    },
+    {
+        "id": 2,
+        "title": "Designer UX/UI",
+        "description": "Créer des prototypes et designs pour des applications mobiles et web.",
+        "userId": 1,
+        "location": "Lyon, France"
+    },
+    {
+        "id": 3,
+        "title": "Développeur Backend",
+        "description": "Gérer les bases de données, les serveurs et l'API avec Node.js et MongoDB.",
+        "userId": 3,
+        "location": "Marseille, France"
+    },
+    {
+        "id": 4,
+        "title": "Développeur Fullstack",
+        "description": "Travailler sur toutes les couches d'une application, du frontend au backend.",
+        "userId": 4,
+        "location": "Télétravail"
+    },
+    {
+        "id": 5,
+        "title": "Chef de projet informatique",
+        "description": "Coordonner les équipes de développement et assurer la gestion des projets.",
+        "userId": 5,
+        "location": "Bordeaux, France"
+    },
+    {
+        "id": 6,
+        "title": "Développeur Mobile",
+        "description": "Développer des applications mobiles iOS et Android avec Flutter.",
+        "userId": 6,
+        "location": "Paris, France"
+    },
+    {
+        "id": 7,
+        "title": "Data Scientist",
+        "description": "Analyser les données et construire des modèles de machine learning.",
+        "userId": 7,
+        "location": "Lille, France"
+    },
+    {
+        "id": 8,
+        "title": "Développeur DevOps",
+        "description": "Gérer l'infrastructure cloud et assurer l'automatisation des processus.",
+        "userId": 8,
+        "location": "Nantes, France"
+    },
+    {
+        "id": 9,
+        "title": "Designer Graphique",
+        "description": "Concevoir des visuels et des supports marketing pour une marque.",
+        "userId": 9,
+        "location": "Toulouse, France"
+    }
+]
