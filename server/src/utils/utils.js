@@ -35,11 +35,14 @@ const { v4: uuidv4 } = require('uuid');
     const generateId = () => uuidv4()
 
     // Suppression de données
-    const deleteJsonFile = (filePath, data) => {
+    const deleteJsonFile = (filePath, id) => {
         const dataBigDelete = readJsonFile(filePath)
 
-        // 
-        dataBigDelete.splice(data, 1)
+        // rechercher la donnée avec une comparaison d"id
+        const index = dataBigDelete.findIndex(item => item.id === id);
+        // supprime la donnée à l'index recherché
+        dataBigDelete.splice(index, 1)
+        // mettre à jour le bd json àprès la suppression
         fs.writeFileSync(filePath, JSON.stringify(dataBigDelete, null, 2))
     }
 

@@ -34,12 +34,14 @@ const getJob = (req, res)=>{
 }
 
 const supJob = (req, res) => {
-    const workSup = readJsonFile(filePath)
-    deleteJsonFile(workSup, data)
+    // récupération de l'id passé en paramètre dans la requète
+    const workSup = req.params.id
+
+    // suppression de donnée correspondant au paramètre récupérée
+    deleteJsonFile(filePath, workSup)
     res.status(200).json()
 
     console.log("Supression effectuée avec succès !")
 }
 
-
-module.exports = { addJob, getJob }
+module.exports = { addJob, getJob, supJob }

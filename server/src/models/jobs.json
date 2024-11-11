@@ -1,29 +1,11 @@
 [
   {
-    "id": "d9cd2d62-b599-4fee-99ad-277040adc02b",
-    "title": "Vue dev",
-    "position": "Benin",
-    "company": "GOATcompany",
-    "jobLocation": "Cotonou",
-    "isStatus": "Pending",
-    "jobType": "Remote"
-  },
-  {
     "id": "95bceea3-eae1-47cf-b601-2807643afa03",
     "title": "Laravel dev",
     "position": "Togo",
     "company": "CodeAcademy",
     "jobLocation": "Cotonou",
     "isStatus": "Interviews",
-    "jobType": "Remote"
-  },
-  {
-    "id": "568df020-375e-40e5-97c9-47bb00779787",
-    "title": "Vue dev",
-    "position": "Benin",
-    "company": "GOATcompany",
-    "jobLocation": "Cotonou",
-    "isStatus": "Pending",
     "jobType": "Remote"
   }
 ]
