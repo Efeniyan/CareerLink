@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "1f78be4a-044d-40bc-a4de-d089996b4a87",
+    "email": "auguste@gmail.com",
+    "name": "Auguste",
+    "password": "Ghana24"
+  },
+  {
+    "id": "7d65ef96-852c-4315-bf4e-8d532a75360f",
+    "email": "august0@gmail.com",
+    "name": "augusta",
+    "password": "Ghana24"
+  }
+]
