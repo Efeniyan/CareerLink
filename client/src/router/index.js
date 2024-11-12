@@ -16,7 +16,7 @@ const router = createRouter({
       component: SignUp,
     },
     {
-      path: '/Jobsall',
+      path: '/home',
       component: AllJobs,
     },
     // {

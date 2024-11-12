@@ -10,12 +10,11 @@ const cors = require('cors');
 app.use(cors()); 
 
 
-// middleware pour 
+// middleware pour gérer les requêtes
 app.use(express.json());
-
-// middleware
 app.use(jobRouter);
 app.use(authRouter)
+
 
 // Route de base
 app.get('/', (req, res) => {

@@ -1,5 +1,5 @@
 // const bcrypt = require("bcryptjs");
-// const bcrypt = require("bcryptjs");
+
 
 // Importation des fonctions et de path
 const { readJsonFile, writeJsonFile, generateId} = require('../utils/utils');
@@ -10,7 +10,7 @@ const filePath = path.join(__dirname, "../models/users.json")
 
 //  fonction pour l'authentification de connexion
 const signIn = (req, res) => {
-    console.log("sign in");
+    // console.log("sign in");
     try {
          // Récupértion des paramètres de la requète entrée par la l'user lors de la connexion
         const { email, password } = req.body;
@@ -19,20 +19,20 @@ const signIn = (req, res) => {
         let users = readJsonFile(filePath);
         // Vérification pour valider la connexion
         const user = users.filter( (el) => el.email === email && el.password === password );
+        
         if (user.length) {
             res.status(200).send({
                 msg: "Authentification réussie",
-                // token: token,
                 data: { email }
             });
             console.log("Authentification réussie")
         } else {
             res
-                .status(200)
+                .status(500)
                 .send({
                     msg: "Nom d'utilisateur ou mot de passe incorrect"
                 })
-                console.log("Nom d'utilisateur ou mot de passe incorrect")
+                // console.log("Nom d'utilisateur ou mot de passe incorrect")
         }
 
     } catch (error) {
@@ -50,14 +50,14 @@ const signIn = (req, res) => {
 const signUp = (req, res) => {
     try {
          // Récupértion des paramètres de la requète entrée par la l'user lors de l'inscription
-        const { email, name, password } = req.body;
+        const { name, email, password } = req.body;
         console.log(req.body)
 
         // Creation d'un nouveau user
-        const newUser = { id: generateId(), email, name, password };
+        const newUser = { id: generateId(), name, email, password };
         let users = readJsonFile(filePath);
         users.push(newUser);
-        console.log(users);
+        // console.log(users);
 
         // Ajout du nouveau job dans users.json
         writeJsonFile(filePath, newUser);
