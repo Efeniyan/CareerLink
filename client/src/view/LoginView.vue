@@ -75,7 +75,6 @@ const signIn = async () => {
 
 </script>
 
-
 <template>
 
     <div class="flex h-screen">
@@ -160,12 +159,12 @@ const signIn = async () => {
                     <!-- Your form elements go here -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-white-100">Email</label>
-                        <input type="text" id="email" name="email" v-model="useremail"
+                        <input type="text" id="email" name="email" v-model="email"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-white-100">Password</label>
-                        <input type="password" id="password" name="password" v-model="userpassword"
+                        <input type="password" id="password" name="password" v-model="password"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>

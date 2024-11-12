@@ -27,4 +27,12 @@
     "localite": "Parakou",
     "password": "111111"
   }
+  [
+    {
+      "id": "ed8d87b4-37da-49ef-8665-6846e9381f60",
+      "email": "mourchid@gmail.com",
+      "password": "123456",
+      "name": "Mourchid"
+    }
+  ]
 ]
