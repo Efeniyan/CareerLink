@@ -40,7 +40,7 @@ const signIn = async () => {
         // Si la réponse du serveur est un succès (status 200)
         if (response.status === 200) {
             // Authentification réussie, redirection vers /allJobs
-            window.location.href = '/allJobs';
+            window.location.href = '/allJob';
         } else if (response.status === 401) {
             // Identifiants incorrects ou utilisateur non trouvé
             Swal.fire({
@@ -159,12 +159,12 @@ const signIn = async () => {
                     <!-- Your form elements go here -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-white-100">Email</label>
-                        <input type="text" id="email" name="email" v-model="email"
+                        <input type="text" id="email" name="email" v-model="useremail"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-white-100">Password</label>
-                        <input type="password" id="password" name="password" v-model="password"
+                        <input type="password" id="password" name="password" v-model="userpassword"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>

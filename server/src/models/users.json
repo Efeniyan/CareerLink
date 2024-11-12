@@ -26,13 +26,12 @@
     "email": "nia@gmail.com",
     "localite": "Parakou",
     "password": "111111"
+  },
+  {
+    "id": "74982d65-1dc8-482a-9c67-884055721e2a",
+    "name": "rolande",
+    "email": "rolande@gmail.com",
+    "localite": "Parakou",
+    "password": "000000"
   }
-  [
-    {
-      "id": "ed8d87b4-37da-49ef-8665-6846e9381f60",
-      "email": "mourchid@gmail.com",
-      "password": "123456",
-      "name": "Mourchid"
-    }
-  ]
 ]

@@ -1,12 +1,9 @@
-const jwt = require('jsonwebtoken');
-const { readJsonFile, writeJsonFile, generateId } = require('../utils/utils');
-const path = require('path');
+// const bcrypt = require("bcryptjs");
 
-// Chemin du fichier JSON contenant les utilisateurs
-const filePath = path.join(__dirname, "../models/users.json");
 
-// Clé secrète pour JWT
-const SECRET_KEY = "jesuislamême"; // À personnaliser avec une clé plus forte
+// Importation des fonctions et de path
+const { readJsonFile, writeJsonFile, generateId} = require('../utils/utils');
+const path = require('path')
 
 // 
 const filePath = path.join(__dirname, "../models/users.json")
@@ -35,8 +32,7 @@ const signIn = (req, res) => {
             // Authentification réussie
             res.status(200).send({
                 msg: "Authentification réussie",
-                token: token, // Le token sera envoyé au client
-                user: { id: user.id, email: user.email, name: user.name }
+                data: { email }
             });
             console.log("Authentification réussie pour l'email:", email);
         } else {
