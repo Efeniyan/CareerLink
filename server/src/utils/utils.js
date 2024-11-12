@@ -5,31 +5,36 @@ const { v4: uuidv4 } = require('uuid');
 
 // Tout pour la gestion des Jobs et utilsateurs
 
-    // Récupération des données des json
-    const readJsonFile = (filePath) =>{ 
-        // Lecture des fichiers json
-        const JsonData = fs.readFileSync(filePath, {encoding: "utf-8"})
-        if(JsonData){        // Si json existe alors convertit cela en tableau js
-            const transformJsonData = JSON.parse(JsonData)
-            return transformJsonData
-        }else {             // Sinon crée un nouveau qui sera convertir en json accessible depuis le chemin filePath
-            const newJsonData = fs.writeFileSync(filePath, JSON.stringify([]));
-            return newJsonData
+   // Récupération des données dans le BDD
+const readJsonFile = (filePath) => {
+    if (fs.existsSync(filePath)) {
+        const fileData = fs.readFileSync(filePath, "UTF-8");
+        console.log("Données récupérées => ", fileData);
+
+        if (fileData) {
+            console.log("if", fileData);
+            const transformData = JSON.parse(fileData);
+            return transformData;
+        } else {
+            fs.writeFileSync(filePath, JSON.stringify([]));
+            return [];
         }
+    } else {
+        fs.writeFileSync(filePath, JSON.stringify([]));
+        return [];
     }
+}
 
-    // Ajouter des données dans fichiers json
-    const writeJsonFile = (filePath, data) => {
-        // Stockage des données issues de la lecture des fichiers json dans un tableau 
-        const bigDataJson = readJsonFile(filePath)
-
-        // Ajout d'une donnée dans le tableau 
-        bigDataJson.push(data)
-
-        // Ajout & Mise à jour du tableau dans jobs.json et users.json lors de chaque push
-        fs.writeFileSync(filePath, JSON.stringify(bigDataJson, null, 2))
-        return data
+// Ajout de données dans la BDD
+const writeJsonFile = (filePath, data) => {
+    const bigData = readJsonFile(filePath); // récupération du fichier json
+    // const todo = {id : 2, description : "Bonjour le monde ", iscompleted : false}
+    if (typeof data === 'string') {
+        data = JSON.parse(data);
     }
+    bigData.push(data[data.length - 1])
+    fs.writeFileSync(filePath, JSON.stringify(bigData, null, 2));
+}
 
     // Gestion des Ids
     const generateId = () => uuidv4()

@@ -1,11 +1,16 @@
-import AllJob from '@/component/AllJobs.vue'
+import All from '@/component/AllJobs.vue'
 import LoginView from '@/view/LoginView.vue'
 import SignUp from '@/view/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import Essai from '../components/essai.vue'
 import Es from '@/components/es.vue'
-// import AllJobs from '@/components/AllJobs.vue';
+import AllJobs from '@/components/AllJobs.vue';
+
 import HomePage from '@/views/HomePage.vue';
+import AddJobs from '@/components/AddJobs.vue'
+import Profil from '@/components/Profil.vue'
+import Statistique from '@/components/Statistique.vue'
+import Header from '@/components/Header.vue'
 
 const routes = createRouter({
   history: createWebHistory(),
@@ -20,11 +25,36 @@ const routes = createRouter({
       name: 'es',
       component: Es,
     },
-    // {
-    //   path: '/allJobs',
-    //   name: 'allJobs',
-    //   component: AllJobs,
-    // },
+    {
+      path: '/header',
+      name: 'header',
+      component: Header,
+    },
+    {
+      path: '/statistiques',
+      name: 'statistiques',
+      component: Statistique,
+    },
+    {
+      path: '/profil',
+      name: 'profil',
+      component: Profil,
+    },
+    {
+      path: '/addJobs',
+      name: 'addJobs',
+      component: AddJobs,
+    },
+    {
+      path: '/allJob',
+      name: 'allJob',
+      component: AllJobs,
+    },
+    {
+      path: '/all',
+      name: 'all',
+      component: All,
+    },
     {
       path: '/',
       component: LoginView,
@@ -33,10 +63,10 @@ const routes = createRouter({
       path: '/sign-up',
       component: SignUp,
     },
-    {
-      path: '/homes',
-      component: AllJob,
-    },
+    // {
+    //   path: '/homes',
+    //   component: AllJobs,
+    // },
   ]
 });
 

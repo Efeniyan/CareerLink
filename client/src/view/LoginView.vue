@@ -1,40 +1,78 @@
 <script setup>
 import { ref } from "vue"
+import Swal from "sweetalert2";
 
 let useremail = ref('')
 let userpassword = ref('')
-
 const signIn = async () => {
 
+    // Récupération des informations de l'utilisateur depuis les champs de saisie
     const userinfo = {
         email: useremail.value.trim(),
         password: userpassword.value.trim(),
+    };
+
+    // Vérification si les champs email et mot de passe sont non vides
+    if (!userinfo.email || !userinfo.password) {
+        // Afficher un SweetAlert pour avertir que les champs sont incomplets
+        Swal.fire({
+            icon: 'error',
+            title: 'Champs incomplets',
+            text: 'Veuillez remplir tous les champs.',
+        });
+        return;  // On arrête l'exécution de la fonction si les champs sont vides
     }
 
-    // if (useremail.value.trim() || userpassword.value.trim() !== '') {
-    //     return signIn();
-    // }
-    const url = "http://localhost:8000/sign-in";
+    const url = "http://localhost:8000/sign-in";  // L'URL de l'API de connexion
 
     try {
+        // Envoi de la requête POST au backend pour authentifier l'utilisateur
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(userinfo)
+            body: JSON.stringify(userinfo)  // Envoi des données en JSON
         });
-        window.location.href = 'home';
-        console.log(response);
+
+        const data = await response.json();  // Récupération de la réponse en JSON
+
+        // Si la réponse du serveur est un succès (status 200)
+        if (response.status === 200) {
+            // Authentification réussie, redirection vers /allJobs
+            window.location.href = '/allJobs';
+        } else if (response.status === 401) {
+            // Identifiants incorrects ou utilisateur non trouvé
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur d\'authentification',
+                text: data.msg || 'Identifiants incorrects.',
+            });
+        } else {
+            // Autres erreurs (par exemple une erreur serveur)
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur serveur',
+                text: data.msg || 'Une erreur est survenue, veuillez réessayer plus tard.',
+            });
+        }
 
     } catch (error) {
         console.log(error.message);
-
+        // Gestion des erreurs liées à la connexion (problèmes réseau, serveur, etc.)
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur de connexion',
+            text: 'Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.',
+        });
     }
 
-    useremail.value = ''
-    userpassword.value = ''
-}
+    // Réinitialisation des champs après tentative de connexion
+    useremail.value = '';
+    userpassword.value = '';
+};
+
+
 </script>
 
 
@@ -114,8 +152,8 @@ const signIn = async () => {
         <!-- Right Pane -->
         <div class="hidden lg:flex items-center justify-center flex-1 bg-cyan-900 text-black">
             <div class="max-w-md w-full p-6">
-                <h1 class="text-3xl font-semibold mb-6 text-black text-center">Login</h1>
-                <h1 class="text-sm font-semibold mb-6 text-white-100 text-center">Join to Our Community with all time
+                <h1 class="text-3xl font-semibold mb-6 text-black text-center fs">Login</h1>
+                <h1 class="text-sm font-semibold mb-6 text-white-100 text-center font">Join to Our Community with all time
                     access and free </h1>
 
                 <form @submit.prevent="signIn()" class="space-y-4">
@@ -132,12 +170,11 @@ const signIn = async () => {
                     </div>
                     <div>
                         <button type="submit"
-                            class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign
-                            Up</button>
+                            class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Login</button>
                     </div>
                 </form>
                 <div class="mt-4 text-sm text-white-100 text-center">
-                    <p>Already have an account? <RouterLink to="/sign-up" class="text-black hover:underline">Sign Up
+                    <p class="size">Already have an account? <RouterLink to="/sign-up" class="text-black hover:underline">Sign Up
                             here</RouterLink>
                     </p>
                 </div>
@@ -148,4 +185,17 @@ const signIn = async () => {
 </template>
 
 
-<style scoped></style>
+<style scoped>
+.fs{
+    font-size: 40px;
+}
+
+.font{
+    font-size: 16px;
+}
+
+.size{
+    font-size: 15px;
+}
+
+</style>

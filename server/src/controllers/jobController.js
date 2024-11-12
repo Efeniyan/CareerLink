@@ -2,25 +2,52 @@
 const { readJsonFile, writeJsonFile, generateId, deleteJsonFile} = require('../utils/utils');
 const path = require('path')
 
-// Déclaration des chemins des fichiers json de users et jobs
+// 
 const filePath = path.join(__dirname, "../models/jobs.json")
 
 
-// Fonction d'ajout dans jobs.json
-const addJob = (req, res)=>{
+// Fonction d'ajout d'un job dans jobs.json
+const addJob = async (req, res) => {
+    try {
+        // Récupération des paramètres de la requête pour l'ajout d'un job
+        const { deadline, description, company, jobLocation, isStatus, jobType, title } = req.body;
 
-    // Récupértion des paramètres de la requète pour l'ajout d'un job
-    const {title, position, company, jobLocation, isStatus, jobType} = req.body // req.body représente le corps de la requête 
+        // Validation des champs
+        if (!deadline || !description || !company || !jobLocation || !isStatus || !jobType || !title) {
+            return res.status(400).json({ error: "Tous les champs doivent être remplis." });
+        }
 
+        console.log("Corps de la requête:", req.body);
 
-    // Creation d'un nouveau job
-    const newJob = {id: generateId(), title, position, company, jobLocation, isStatus, jobType} 
-    // Ajout du nouveau job dans jobs.json
-    writeJsonFile(filePath,newJob)
-    res.status(200).json();
+        // Lecture du fichier JSON existant de jobs
+        let jobs = await readJsonFile(filePath);
 
-    console.log("Ajout effectué avec succès !")
-}
+        // Création d'un nouveau job
+        const newJob = {
+            id: generateId(),
+            deadline,
+            description,
+            company,
+            jobLocation,
+            isStatus,
+            jobType,
+            title  // Ajout de "title"
+        };
+
+        // Ajout du nouveau job dans la liste des jobs
+        jobs.push(newJob);
+
+        // Écriture des données mises à jour dans le fichier JSON
+        await writeJsonFile(filePath, jobs);
+
+        // Réponse JSON avec succès
+        res.status(200).json({ message: "Job ajouté avec succès!", job: newJob });
+    } catch (error) {
+        console.error("Erreur lors de l'ajout du job:", error);
+        res.status(500).json({ error: "Une erreur est survenue lors de l'ajout du job." });
+    }
+};
+
 
 // Fonction de récupération afin d'afficher les données de jobs.json dans la vue
 const getJob = (req, res)=>{

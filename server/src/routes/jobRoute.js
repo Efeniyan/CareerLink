@@ -3,10 +3,10 @@ const express = require('express')
 const router = express.Router()
 
 // Importation des fonctions 
-const {addJob, getJob, supJob } = require("../controllers/jobController")
+const {addJob, getJob, supJob } = require("../controllers/jobController.js")
 
 // route pour envoyer les données
-router.post("/addJob", addJob);
+router.post("/add-job", addJob);
 
 // route pour récupérer les données
 router.get("/getJob", getJob);

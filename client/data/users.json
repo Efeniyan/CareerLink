@@ -1,13 +1,10 @@
 [
-    {
-      "id": 1,
-      "username": "alice",
-      "email": "alice@example.com"
-    },
-    {
-      "id": 2,
-      "username": "bob",
-      "email": "bob@example.com"
-    }
+  {
+    "id": "556ac428-7278-4a8e-98c3-5610ad68075d",
+    "name": "Dylan",
+    "email": "dylan@gmail.com",
+    "localite": "Cotonou",
+    "password": "......"
+  }
   ]
   

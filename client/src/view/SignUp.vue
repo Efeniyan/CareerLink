@@ -1,25 +1,93 @@
 <script setup>
 import { ref } from "vue"
-
+import Swal from "sweetalert2";
 
 let username = ref('')
 let useremail = ref('')
+let userLocalite = ref('')
 let userpassword = ref('')
 let userconfirpassword = ref('')
 
-const signUp = async () => {
+// const signUp = async () => {
 
+//     const userinfo = {
+//         name: username.value,
+//         email: useremail.value,
+//         localite: userLocalite.value,
+//         password: userpassword.value,
+//         confirmpassword: userconfirpassword.value
+//     }
+
+
+//     // if (username.value.trim() || useremail.value.trim() || userpassword.value.trim() || userconfirpassword.value.trim() !== '') {
+//     //    return signUp();
+//     // }
+//     const url = "http://localhost:8000/sign-up";
+
+//     try {
+//         const response = await fetch(url, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(userinfo)
+//         });
+//         window.location.href = '/';
+//         console.log(response);
+
+//     } catch (error) {
+//         console.log(error.message);
+
+//     }
+
+//     username.value = ''
+//     useremail.value = ''
+//     userLocalite.value = ''
+//     userpassword.value = ''
+//     userconfirpassword.value = ''
+
+// }
+
+const signUp = async () => {
+    // Récupération des informations de l'utilisateur
     const userinfo = {
-        name: username.value,
-        email: useremail.value,
-        password: userpassword.value,
-        confirmpassword: userconfirpassword.value
+        name: username.value.trim(),
+        email: useremail.value.trim(),
+        localite: userLocalite.value.trim(),
+        password: userpassword.value.trim(),
+        confirmpassword: userconfirpassword.value.trim(),
+    };
+
+    // Vérification si tous les champs sont remplis
+    if (!userinfo.name || !userinfo.email || !userinfo.localite || !userinfo.password || !userinfo.confirmpassword) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Champs incomplets',
+            text: 'Veuillez remplir tous les champs.',
+        });
+        return;  // Si un champ est vide, on arrête l'exécution
     }
 
+    // Vérification de la conformité des mots de passe
+    if (userinfo.password !== userinfo.confirmpassword) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Les mots de passe ne correspondent pas.',
+        });
+        return;  // Si les mots de passe ne correspondent pas, on arrête l'exécution
+    }
 
-    // if (username.value.trim() || useremail.value.trim() || userpassword.value.trim() || userconfirpassword.value.trim() !== '') {
-    //    return signUp();
-    // }
+    // Vérification de la longueur du mot de passe (optionnel, mais une bonne pratique)
+    if (userinfo.password.length < 6) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Mot de passe trop court',
+            text: 'Le mot de passe doit contenir au moins 6 caractères.',
+        });
+        return;
+    }
+
     const url = "http://localhost:8000/sign-up";
 
     try {
@@ -30,20 +98,45 @@ const signUp = async () => {
             },
             body: JSON.stringify(userinfo)
         });
-        window.location.href = '/';
-        console.log(response);
+
+        const data = await response.json();  // Récupération de la réponse du serveur
+
+        if (response.status === 200) {
+            // Si l'utilisateur a été ajouté avec succès, redirection vers la page d'accueil
+            Swal.fire({
+                icon: 'success',
+                title: 'Inscription réussie',
+                text: 'Vous êtes maintenant inscrit !',
+            }).then(() => {
+                window.location.href = '/';  // Rediriger après un délai pour laisser l'utilisateur voir le message
+            });
+        } else {
+            // Autres erreurs (par exemple utilisateur déjà existant)
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: data.msg || 'Une erreur est survenue. Veuillez réessayer.',
+            });
+        }
 
     } catch (error) {
         console.log(error.message);
-
+        // Erreur de connexion au serveur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur serveur',
+            text: 'Une erreur est survenue lors de l\'inscription. Veuillez réessayer plus tard.',
+        });
     }
 
-    username.value = ''
-    useremail.value = ''
-    userpassword.value = ''
-    userconfirpassword.value = ''
-    
-}
+    // Réinitialisation des champs après inscription (si succès ou échec)
+    username.value = '';
+    useremail.value = '';
+    userLocalite.value = '';
+    userpassword.value = '';
+    userconfirpassword.value = '';
+};
+
 </script>
 
 
@@ -250,23 +343,28 @@ const signUp = async () => {
                     <!-- Your form elements go here -->
                     <div>
                         <label for="username" class="block text-sm font-medium text-white-100">Username</label>
-                        <input type="text" id="username" name="username" v-model="username"
-                          required  class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                        <input type="text" id="username" name="username" v-model="username" required
+                            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-white-100">Email</label>
-                        <input type="text" id="email" name="email" v-model="useremail"
-                           required class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                        <input type="email" id="email" name="email" v-model="useremail" required
+                            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
-                        <label for="password" class="block text-sm font-medium text-white-100">Password</label>
-                        <input type="password" id="password" name="password" v-model="userpassword"
-                           required class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                        <label for="Localite" class="block text-sm font-medium text-white-100">Locality</label>
+                        <input type="text" id="Localite" name="Localite" v-model="userLocalite" required
+                            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-white-100">PassWord</label>
+                        <input type="password" id="password" name="password" v-model="userpassword" required
+                            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-white-100">ConfirmPassword</label>
-                        <input type="password" id="confirmpassword" v-model="userconfirpassword"
-                            required class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                        <input type="password" id="confirmpassword" v-model="userconfirpassword" required
+                            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <button type="submit"

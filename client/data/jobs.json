@@ -1,65 +1,52 @@
 [
     {
-        "id": 1,
-        "title": "Développeur Frontend",
-        "description": "Construire des interfaces utilisateur avec React et Vue.js.",
-        "userId": 2,
-        "location": "Paris, France"
+      "id": "f64123ea-d56f-4bdb-aef5-1f83e7af1f61",
+      "deadline": "2024-12-31",
+      "description": "This is a test job description",
+      "company": "Test Company",
+      "jobLocation": "Test Location",
+      "isStatus": "open",
+      "jobType": "full-time",
+      "title": "Test Job"
     },
     {
-        "id": 2,
-        "title": "Designer UX/UI",
-        "description": "Créer des prototypes et designs pour des applications mobiles et web.",
-        "userId": 1,
-        "location": "Lyon, France"
+      "id": "b62b9ab9-dd82-4f8d-b8e5-00c00a2a65fe",
+      "deadline": "2024-12-31",
+      "description": "This is a test job description",
+      "company": "Test Company",
+      "jobLocation": "Test Location",
+      "isStatus": "open",
+      "jobType": "full-time",
+      "title": "Test Job"
     },
     {
-        "id": 3,
-        "title": "Développeur Backend",
-        "description": "Gérer les bases de données, les serveurs et l'API avec Node.js et MongoDB.",
-        "userId": 3,
-        "location": "Marseille, France"
+      "id": "d6e3a00b-b7c6-4548-a02c-6f7d5215216f",
+      "deadline": "2024-12-31",
+      "description": "This is a test job description",
+      "company": "Company",
+      "jobLocation": "Location",
+      "isStatus": "open",
+      "jobType": "full-time",
+      "title": "Job"
     },
     {
-        "id": 4,
-        "title": "Développeur Fullstack",
-        "description": "Travailler sur toutes les couches d'une application, du frontend au backend.",
-        "userId": 4,
-        "location": "Télétravail"
+      "id": "e3ff3576-e8cf-4285-a3e6-e6ee2a433eef",
+      "deadline": "2024-11-13",
+      "description": "dfyugefzefe bdff zef gufr",
+      "company": "Nia's",
+      "jobLocation": "Parakou",
+      "isStatus": "open",
+      "jobType": "freelance",
+      "title": "Job1"
     },
     {
-        "id": 5,
-        "title": "Chef de projet informatique",
-        "description": "Coordonner les équipes de développement et assurer la gestion des projets.",
-        "userId": 5,
-        "location": "Bordeaux, France"
-    },
-    {
-        "id": 6,
-        "title": "Développeur Mobile",
-        "description": "Développer des applications mobiles iOS et Android avec Flutter.",
-        "userId": 6,
-        "location": "Paris, France"
-    },
-    {
-        "id": 7,
-        "title": "Data Scientist",
-        "description": "Analyser les données et construire des modèles de machine learning.",
-        "userId": 7,
-        "location": "Lille, France"
-    },
-    {
-        "id": 8,
-        "title": "Développeur DevOps",
-        "description": "Gérer l'infrastructure cloud et assurer l'automatisation des processus.",
-        "userId": 8,
-        "location": "Nantes, France"
-    },
-    {
-        "id": 9,
-        "title": "Designer Graphique",
-        "description": "Concevoir des visuels et des supports marketing pour une marque.",
-        "userId": 9,
-        "location": "Toulouse, France"
+      "id": "8d71e1cc-889f-4b7d-9da9-48f21df2f28e",
+      "deadline": "2024-12-01",
+      "description": "fczedfzada  dzeda",
+      "company": "Entreprise",
+      "jobLocation": "Cotonou",
+      "isStatus": "open",
+      "jobType": "part-time",
+      "title": "Job2"
     }
-]
+  ]

@@ -429,7 +429,7 @@ async function fetchJobs() {
     loading.value = true; // Démarrer le chargement
     error.value = null; // Réinitialiser l'erreur
     try {
-        const response = await fetch('/data/job.json'); // Remplacez par le bon chemin
+        const response = await fetch('/data/jobs.json'); // Remplacez par le bon chemin
         if (!response.ok) {
             throw new Error('Échec de la récupération des données');
         }
