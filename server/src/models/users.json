@@ -1,20 +1,10 @@
 [
-  {
-    "id": "e18b5540-369c-4499-b77f-26fe02faf17f",
-    "name": "gon",
-    "email": "cooviquenum23@gmail.com",
-    "password": "22222"
-  },
-  {
-    "id": "a7f0a1f0-7b3f-4c64-bf64-d211ecffe0af",
-    "name": "son",
-    "email": "cooviquenum23@gmail.com",
-    "password": "55555"
-  },
-  {
-    "id": "428e7f02-9334-4cff-a8f4-36bb129b80b1",
-    "name": "Ilan",
-    "email": "ilan@gmail.com",
-    "password": "00000"
-  }
+  [
+    {
+      "id": "ed8d87b4-37da-49ef-8665-6846e9381f60",
+      "email": "mourchid@gmail.com",
+      "password": "123456",
+      "name": "Mourchid"
+    }
+  ]
 ]

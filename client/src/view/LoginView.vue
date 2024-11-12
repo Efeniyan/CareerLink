@@ -1,42 +1,48 @@
 <script setup>
-import { ref } from "vue"
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-let useremail = ref('')
-let userpassword = ref('')
+const email = ref('');
+const password = ref('');
+const router = useRouter();
 
 const signIn = async () => {
+  const userinfo = {
+    email: email.value.trim(),
+    password: password.value.trim(),
+  };
 
-    const userinfo = {
-        email: useremail.value.trim(),
-        password: userpassword.value.trim(),
+  try {
+    const response = await fetch("http://localhost:8000/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userinfo),
+    });
+    console.log(userinfo);
+    console.log(response);
+    
+    const data = await response.json();
+
+    if (response.ok) {
+      // Si la connexion est réussie, stocker le token dans localStorage
+      localStorage.setItem('token', data.token);
+      console.log("Token stocké : ", data.token);
+      // Rediriger vers la page d'accueil
+      router.push('/homes');
+    } else {
+      console.error(data.msg);  // Afficher l'erreur de connexion
     }
+  } catch (error) {
+    console.log('Erreur de connexion :', error.message);
+  }
 
-    // if (useremail.value.trim() || userpassword.value.trim() !== '') {
-    //     return signIn();
-    // }
-    const url = "http://localhost:8000/sign-in";
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userinfo)
-        });
-        window.location.href = 'home';
-        console.log(response);
-
-    } catch (error) {
-        console.log(error.message);
-
-    }
-
-    useremail.value = ''
-    userpassword.value = ''
-}
+  // Réinitialiser les champs
+  email.value = '';
+  password.value = '';
+};
 </script>
-
 
 <template>
 
@@ -122,12 +128,12 @@ const signIn = async () => {
                     <!-- Your form elements go here -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-white-100">Email</label>
-                        <input type="text" id="email" name="email" v-model="useremail"
+                        <input type="text" id="email" name="email" v-model="email"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-white-100">Password</label>
-                        <input type="password" id="password" name="password" v-model="userpassword"
+                        <input type="password" id="password" name="password" v-model="password"
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>

@@ -1,25 +1,33 @@
 <script setup>
-import { ref } from "vue"
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 
-let username = ref('')
-let useremail = ref('')
-let userpassword = ref('')
-let userconfirpassword = ref('')
+let username = ref('');
+let useremail = ref('');
+let userpassword = ref('');
+let userconfirpassword = ref('');
 
 const signUp = async () => {
-
     const userinfo = {
-        name: username.value,
-        email: useremail.value,
-        password: userpassword.value,
-        confirmpassword: userconfirpassword.value
+        name: username.value.trim(),
+        email: useremail.value.trim(),
+        password: userpassword.value.trim(),
+        confirmpassword: userconfirpassword.value.trim()
+    };
+
+    // Validation basique
+    if (!userinfo.name || !userinfo.email || !userinfo.password || !userinfo.confirmpassword) {
+        console.log("Tous les champs sont obligatoires.");
+        return;
     }
 
+    if (userinfo.password !== userinfo.confirmpassword) {
+        console.log("Les mots de passe ne correspondent pas.");
+        return;
+    }
 
-    // if (username.value.trim() || useremail.value.trim() || userpassword.value.trim() || userconfirpassword.value.trim() !== '') {
-    //    return signUp();
-    // }
     const url = "http://localhost:8000/sign-up";
 
     try {
@@ -30,20 +38,26 @@ const signUp = async () => {
             },
             body: JSON.stringify(userinfo)
         });
-        window.location.href = '/';
-        console.log(response);
+
+        if (!response.ok) {
+            throw new Error("Erreur lors de l'inscription.");
+        }
+
+        const data = await response.json();
+        console.log("Inscription réussie:", data);
+
+        // Rediriger vers la page de connexion
+        router.push('/');
 
     } catch (error) {
-        console.log(error.message);
-
+        console.log("Erreur:", error.message);
     }
 
-    username.value = ''
-    useremail.value = ''
-    userpassword.value = ''
-    userconfirpassword.value = ''
-    
-}
+    username.value = '';
+    useremail.value = '';
+    userpassword.value = '';
+    userconfirpassword.value = '';
+};
 </script>
 
 
