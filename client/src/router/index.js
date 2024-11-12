@@ -15,40 +15,7 @@ import Header from '@/components/Header.vue'
 
 // Définition des routes
 const routes = [
-  {
-    path: '/home',
-    name: 'home',
-    component: HomePage,
-    meta: { requiresAuth: true }, // Page protégée
-  },
-  {
-    path: '/es',
-    name: 'es',
-    component: Es,
-    meta: { requiresAuth: true }, // Page protégée
-
-  },
-  {
-    path: '/',
-    name: 'login',
-    component: LoginView,
-  },
-  {
-    path: '/sign-up',
-    name: 'signup',
-    component: SignUp,
-  },
-  {
-    path: '/homes',
-    name: 'alljobs',
-    component: AllJob,
-    meta: { requiresAuth: true }, // Page protégée
-
-  },
-];
-const routes = createRouter({
-  history: createWebHistory(),
-  routes: [
+  
     {
       path: '/home',
       name: 'home',
@@ -101,8 +68,7 @@ const routes = createRouter({
     //   path: '/homes',
     //   component: AllJobs,
     // },
-  ]
-});
+  ];
 
 // Création du routeur
 const router = createRouter({
