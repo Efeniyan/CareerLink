@@ -5,9 +5,6 @@
 const { readJsonFile, writeJsonFile, generateId} = require('../utils/utils');
 const path = require('path')
 
-// 
-const filePath = path.join(__dirname, "../models/users.json")
-
 //  fonction pour l'authentification de connexion
 
 const signIn = (req, res) => {
