@@ -8,9 +8,6 @@ const filePath = path.join(__dirname, "../models/users.json");
 // Clé secrète pour JWT
 const SECRET_KEY = "jesuislamême"; // À personnaliser avec une clé plus forte
 
-// 
-const filePath = path.join(__dirname, "../models/users.json")
-
 //  fonction pour l'authentification de connexion
 
 const signIn = (req, res) => {
