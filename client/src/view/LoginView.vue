@@ -1,78 +1,47 @@
 <script setup>
-import { ref } from "vue"
-import Swal from "sweetalert2";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-let useremail = ref('')
-let userpassword = ref('')
+const email = ref('');
+const password = ref('');
+const router = useRouter();
+
 const signIn = async () => {
+  const userinfo = {
+    email: email.value.trim(),
+    password: password.value.trim(),
+  };
 
-    // Récupération des informations de l'utilisateur depuis les champs de saisie
-    const userinfo = {
-        email: useremail.value.trim(),
-        password: userpassword.value.trim(),
-    };
+  try {
+    const response = await fetch("http://localhost:5000/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userinfo),
+    });
+    console.log(userinfo);
+    console.log(response);
+    
+    const data = await response.json();
 
-    // Vérification si les champs email et mot de passe sont non vides
-    if (!userinfo.email || !userinfo.password) {
-        // Afficher un SweetAlert pour avertir que les champs sont incomplets
-        Swal.fire({
-            icon: 'error',
-            title: 'Champs incomplets',
-            text: 'Veuillez remplir tous les champs.',
-        });
-        return;  // On arrête l'exécution de la fonction si les champs sont vides
+    if (response.ok) {
+      // Si la connexion est réussie, stocker le token dans localStorage
+      localStorage.setItem('token', data.token);
+      console.log("Token stocké : ", data.token);
+      // Rediriger vers la page d'accueil
+      router.push('/homes');
+    } else {
+      console.error(data.msg);  // Afficher l'erreur de connexion
     }
+  } catch (error) {
+    console.log('Erreur de connexion :', error.message);
+  }
 
-    const url = "http://localhost:8000/sign-in";  // L'URL de l'API de connexion
-
-    try {
-        // Envoi de la requête POST au backend pour authentifier l'utilisateur
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userinfo)  // Envoi des données en JSON
-        });
-
-        const data = await response.json();  // Récupération de la réponse en JSON
-
-        // Si la réponse du serveur est un succès (status 200)
-        if (response.status === 200) {
-            // Authentification réussie, redirection vers /allJobs
-            window.location.href = '/allJobs';
-        } else if (response.status === 401) {
-            // Identifiants incorrects ou utilisateur non trouvé
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur d\'authentification',
-                text: data.msg || 'Identifiants incorrects.',
-            });
-        } else {
-            // Autres erreurs (par exemple une erreur serveur)
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur serveur',
-                text: data.msg || 'Une erreur est survenue, veuillez réessayer plus tard.',
-            });
-        }
-
-    } catch (error) {
-        console.log(error.message);
-        // Gestion des erreurs liées à la connexion (problèmes réseau, serveur, etc.)
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur de connexion',
-            text: 'Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.',
-        });
-    }
-
-    // Réinitialisation des champs après tentative de connexion
-    useremail.value = '';
-    userpassword.value = '';
+  // Réinitialiser les champs
+  email.value = '';
+  password.value = '';
 };
-
-
 </script>
 
 <template>

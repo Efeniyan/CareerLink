@@ -8,80 +8,90 @@ const filePath = path.join(__dirname, "../models/users.json");
 // Clé secrète pour JWT
 const SECRET_KEY = "jesuislamême"; // À personnaliser avec une clé plus forte
 
-//  fonction pour l'authentification de connexion
-
+// Fonction pour l'authentification de connexion (avec JWT)
 const signIn = (req, res) => {
     try {
-        // Récupération des paramètres de la requête envoyés par l'utilisateur
         const { email, password } = req.body;
-
-        // Vérification que les champs email et password sont présents
-        if (!email || !password) {
-            return res.status(400).send({
-                msg: "Veuillez fournir à la fois l'email et le mot de passe."
-            });
-        }
-
-        // Lecture du fichier users.json
+        console.log(req.body)
+        // Lecture de users.json
         let users = readJsonFile(filePath);
-
-        // Recherche de l'utilisateur par email et mot de passe
-        const user = users.find((el) => el.email === email && el.password === password);
-
+        console.log(users);
+        
+        // Vérification des identifiants
+        const user = users.filter((el) => el.email === email && el.password === password);
+        console.log(user)
         if (user) {
-            // Authentification réussie
-            res.status(200).send({
+            // Génération d'un token JWT
+            const token = jwt.sign({ id: user.id, username: user.name }, SECRET_KEY, { expiresIn: '2h' });
+            
+            // Envoi du token au client
+            res.status(200).json({
                 msg: "Authentification réussie",
                 token: token, // Le token sera envoyé au client
                 user: { id: user.id, email: user.email, name: user.name }
             });
-            console.log("Authentification réussie pour l'email:", email);
         } else {
-            // Nom d'utilisateur ou mot de passe incorrect
-            res.status(401).send({
-                msg: "Nom d'utilisateur ou mot de passe incorrect"
-            });
-            console.log("Nom d'utilisateur ou mot de passe incorrect pour l'email:", email);
+            res.status(401).send({ msg: "Email ou mot de passe incorrect" });
         }
 
     } catch (error) {
-        console.error("Une erreur est survenue lors de l'authentification de l'utilisateur:", error);
-        
-        // En cas d'erreur interne, on renvoie un statut 500
-        res.status(500).send({
-            msg: "Une erreur est survenue lors de l'authentification. Veuillez réessayer plus tard."
-        });
+        console.error("Erreur lors de l'authentification de l'utilisateur", error);
+        res.status(500).send({ msg: "Une erreur est survenue lors de l'authentification" });
     }
 };
 
 
-//  fonction pour l'authentification de l'inscription 
-// const signUp = (req, res) => {
-//     try {
-//          // Récupértion des paramètres de la requète entrée par la l'user lors de l'inscription
-//         const { name, email, localite, password } = req.body;
-//         console.log(req.body)
-
-//         // Creation d'un nouveau user
-//         const newUser = { id: generateId(), name, email, localite, password };
-//         let users = readJsonFile(filePath);
-//         users.push(newUser);
-//         // console.log(users);
-
-//         // Ajout du nouveau job dans users.json
-//         writeJsonFile(filePath, newUser);
-//         res 
-//         .status(200).json()
-//         .send({ msg: "Utilisateur ajouté avec succès ", data: newUser });
-        
-//     } catch (error) {
-//         res.status(500).send({
-//             msg: "Une erreur est survenue lors de la création de l'utilisateur "
-//         })
-//     }
-// };
-
 const signUp = (req, res) => {
+    // try {
+    //     const { name, email, localite, password, confirmpassword } = req.body;
+    //     console.log(req.body)
+        
+    //     // Vérification des champs
+    //     if (!name || !email || !localite || !password || !confirmpassword) {
+    //         return res.status(400).send({
+    //             msg: "Tous les champs doivent être remplis."
+    //         });
+    //     }
+
+    //     // Vérification de la correspondance des mots de passe
+    //     if (password !== confirmpassword) {
+    //         return res.status(400).send({
+    //             msg: "Les mots de passe ne correspondent pas."
+    //         });
+    //     }
+
+    //     // Lecture des utilisateurs existants
+    //     let users = readJsonFile(filePath);
+
+    //     // Vérification si un utilisateur avec le même email existe déjà
+    //     const existingUser = users.find(user => user.email === email);
+    //     if (existingUser) {
+    //         return res.status(400).send({
+    //             msg: "Un utilisateur avec cet email existe déjà."
+    //         });
+    //     }
+
+    //     // Création du nouvel utilisateur
+    //     const newUser = { id: generateId(), name, email, localite, password };
+
+    //     // Ajout du nouvel utilisateur à la liste des utilisateurs
+    //     users.push(newUser);
+
+    //     // Écriture de la nouvelle liste d'utilisateurs dans le fichier
+    //     writeJsonFile(filePath, users);
+
+    //     // Réponse de succès
+    //     res.status(200).send({
+    //         msg: "Utilisateur ajouté avec succès.",
+    //         data: newUser
+    //     });
+
+    // } catch (error) {
+    //     console.error("Une erreur est survenue lors de la création de l'utilisateur:", error);
+    //     res.status(500).send({
+    //         msg: "Une erreur est survenue lors de la création de l'utilisateur. Veuillez réessayer plus tard."
+    //     });
+    // }
     try {
         const { name, email, localite, password, confirmpassword } = req.body;
         console.log(req.body)
@@ -99,44 +109,56 @@ const signUp = (req, res) => {
                 msg: "Les mots de passe ne correspondent pas."
             });
         }
+        // const { name, email, password } = req.body;
 
-        // Lecture des utilisateurs existants
+        // Lecture de users.json
         let users = readJsonFile(filePath);
 
-        // Vérification si un utilisateur avec le même email existe déjà
-        const existingUser = users.find(user => user.email === email);
-        if (existingUser) {
-            return res.status(400).send({
-                msg: "Un utilisateur avec cet email existe déjà."
-            });
+        // Vérifier si l'email est déjà utilisé
+        const userExists = users.find((user) => user.email === email);
+        if (userExists) {
+            return res.status(409).send({ msg: "Cet email est déjà utilisé." });
         }
 
-        // Création du nouvel utilisateur
-        const newUser = { id: generateId(), name, email, localite, password };
-
-        // Ajout du nouvel utilisateur à la liste des utilisateurs
+        // Création d'un nouveau user
+        const newUser = { id: generateId(), email, localite, password, name };
         users.push(newUser);
 
-        // Écriture de la nouvelle liste d'utilisateurs dans le fichier
+        // Réécriture du fichier JSON avec le nouvel utilisateur
         writeJsonFile(filePath, users);
 
-        // Réponse de succès
-        res.status(200).send({
-            msg: "Utilisateur ajouté avec succès.",
-            data: newUser
-        });
+        // Génération d'un token JWT pour le nouvel utilisateur
+        const token = jwt.sign({ id: newUser.id, username: newUser.name }, SECRET_KEY, { expiresIn: '1h' });
 
-    } catch (error) {
-        console.error("Une erreur est survenue lors de la création de l'utilisateur:", error);
-        res.status(500).send({
-            msg: "Une erreur est survenue lors de la création de l'utilisateur. Veuillez réessayer plus tard."
+        res.status(201).send({
+            msg: "Utilisateur ajouté avec succès",
+            token: token, // Envoi du token au client après inscription
+            user: { id: newUser.id, email: newUser.email, name: newUser.name }
         });
+    } catch (error) {
+        console.error("Erreur lors de la création de l'utilisateur", error);
+        res.status(500).send({ msg: "Une erreur est survenue lors de la création de l'utilisateur." });
+    }
+};
+
+// Middleware pour vérifier le token JWT
+const verifyToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+
+    if (!token) {
+        return res.status(403).send({ msg: "Accès refusé. Aucun token fourni." });
+    }
+
+    try {
+        const decoded = jwt.verify(token.split(' ')[1], SECRET_KEY);
+        req.user = decoded; 
+        next("/singn-in"); 
+    } catch (error) {
+        res.status(401).send({ msg: "Token invalide." });
     }
 };
 
 
 
-
-
 // Exportation des fonctionnnalités
-module.exports = { signIn, signUp };
+module.exports = { signIn, signUp, verifyToken };

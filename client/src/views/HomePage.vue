@@ -83,7 +83,7 @@ async function fetchJobs() {
     loading.value = true; // Démarrer le chargement
     error.value = null; // Réinitialiser l'erreur
     try {
-        const response = await fetch('/data/jobs.json'); // Remplacez par le bon chemin
+        const response = await fetch('http://localhost:5000/getJob'); // Remplacez par le bon chemin
         if (!response.ok) {
             throw new Error('Échec de la récupération des données');
         }
@@ -106,10 +106,10 @@ function applyForJob(jobId) {
 const filteredJobs = computed(() => {
     return jobs.value.filter(job => {
         const matchesTitle = job.title.toLowerCase().includes(searchTitle.value.toLowerCase());
-        const matchesDescription = job.description.toLowerCase().includes(searchDescription.value.toLowerCase());
-        const matchesLocation = job.location.toLowerCase().includes(searchLocation.value.toLowerCase());
+        // const matchesDescription = job.description.toLowerCase().includes(searchDescription.value.toLowerCase());
+        const matchesLocation = job.jobLocation.toLowerCase().includes(searchLocation.value.toLowerCase());
         
-        return matchesTitle && matchesDescription && matchesLocation;
+        return matchesTitle  && matchesLocation;
     });
 });
 

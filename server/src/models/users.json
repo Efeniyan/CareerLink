@@ -26,7 +26,7 @@
     "email": "nia@gmail.com",
     "localite": "Parakou",
     "password": "111111"
-  }
+  },
   [
     {
       "id": "ed8d87b4-37da-49ef-8665-6846e9381f60",
@@ -34,5 +34,19 @@
       "password": "123456",
       "name": "Mourchid"
     }
-  ]
+  ],
+  {
+    "id": "5b0c214b-4636-42d8-8187-0a65f3af1204",
+    "email": "azs@gmail.com",
+    "localite": "Cotonou",
+    "password": "123456",
+    "name": "Shinobi_dev2"
+  },
+  {
+    "id": "10c85cd8-9cfb-441d-9743-ae615e642a88",
+    "email": "cooviquenum8@gmail.com",
+    "localite": "Cotonou",
+    "password": "55555",
+    "name": "gon"
+  }
 ]

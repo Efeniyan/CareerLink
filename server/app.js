@@ -1,9 +1,10 @@
 // Importation des modules et fonctionnalités
 const express = require('express');
 const app = express();
+
 const jobRouter = require("./src/routes/jobRoute")
 const authRouter = require("./src/routes/authRoute")
-const PORT = 8000;
+const PORT = 5000;
 const cors = require('cors');
 
 // middleware pour 
