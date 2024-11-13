@@ -30,7 +30,7 @@ const signIn = async () => {
       localStorage.setItem('token', data.token);
       console.log("Token stocké : ", data.token);
       // Rediriger vers la page d'accueil
-      router.push('/homes');
+      router.push('/Statistique');
     } else {
       console.error(data.msg);  // Afficher l'erreur de connexion
     }

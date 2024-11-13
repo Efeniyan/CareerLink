@@ -48,5 +48,33 @@
     "localite": "Cotonou",
     "password": "55555",
     "name": "gon"
+  },
+  {
+    "id": "8f9ed51a-243f-4336-8d22-ea1a0b4b345b",
+    "email": "mourchid@gmail.com",
+    "localite": "Parakou",
+    "password": "123456",
+    "name": "Mourchid"
+  },
+  {
+    "id": "24dfc803-58a9-4d48-a657-09c7a3095936",
+    "email": "luc@gmail.com",
+    "localite": "Cotonou",
+    "password": "111111",
+    "name": "luc"
+  },
+  {
+    "id": "65e34002-8935-45e3-83e2-a4ca265550d3",
+    "email": "zer@gmail.com",
+    "localite": "Cotonou",
+    "password": "123456",
+    "name": "alod"
+  },
+  {
+    "id": "279d5597-ee78-4c03-9839-f2e4a2cd589c",
+    "email": "aze@gmail.com",
+    "localite": "Cotonou",
+    "password": "147852",
+    "name": "Mourchid"
   }
 ]

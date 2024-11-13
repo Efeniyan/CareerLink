@@ -49,7 +49,7 @@ const signUp = async () => {
         console.log("Inscription réussie:", data);
 
         // Rediriger vers la page de connexion
-        router.push('/');
+        router.push('/login');
 
     } catch (error) {
         console.log("Erreur:", error.message);
