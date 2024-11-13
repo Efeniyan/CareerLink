@@ -8,46 +8,6 @@ let userLocalite = ref('')
 let userpassword = ref('')
 let userconfirpassword = ref('')
 
-// const signUp = async () => {
-
-//     const userinfo = {
-//         name: username.value,
-//         email: useremail.value,
-//         localite: userLocalite.value,
-//         password: userpassword.value,
-//         confirmpassword: userconfirpassword.value
-//     }
-
-
-//     // if (username.value.trim() || useremail.value.trim() || userpassword.value.trim() || userconfirpassword.value.trim() !== '') {
-//     //    return signUp();
-//     // }
-//     const url = "http://localhost:8000/sign-up";
-
-//     try {
-//         const response = await fetch(url, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(userinfo)
-//         });
-//         window.location.href = '/';
-//         console.log(response);
-
-//     } catch (error) {
-//         console.log(error.message);
-
-//     }
-
-//     username.value = ''
-//     useremail.value = ''
-//     userLocalite.value = ''
-//     userpassword.value = ''
-//     userconfirpassword.value = ''
-
-// }
-
 const signUp = async () => {
     // Récupération des informations de l'utilisateur
     const userinfo = {
@@ -108,7 +68,7 @@ const signUp = async () => {
                 title: 'Inscription réussie',
                 text: 'Vous êtes maintenant inscrit !',
             }).then(() => {
-                window.location.href = '/';  // Rediriger après un délai pour laisser l'utilisateur voir le message
+                window.location.href = '/login';  // Rediriger après un délai pour laisser l'utilisateur voir le message
             });
         } else {
             // Autres erreurs (par exemple utilisateur déjà existant)
@@ -373,7 +333,7 @@ const signUp = async () => {
                     </div>
                 </form>
                 <div class="mt-4 text-sm text-white-100 text-center">
-                    <p>Already have an account? <RouterLink to="/" class="text-black hover:underline">Login here
+                    <p>Already have an account? <RouterLink to="/login" class="text-black hover:underline">Login here
                         </RouterLink>
                     </p>
                 </div>

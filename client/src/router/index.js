@@ -17,7 +17,7 @@ import Header from '@/components/Header.vue'
 const routes = [
   
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: HomePage,
     },
@@ -57,7 +57,8 @@ const routes = [
       component: All,
     },
     {
-      path: '/',
+      path: '/login',
+      name: 'login',
       component: LoginView,
     },
     {
